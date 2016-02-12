@@ -8,6 +8,9 @@
 
 NodeJS Toolkit & CLI for GitLab
 
+Currently this project directly update GitLab's database, please make sure you have some backups before messing around with your database. Ability to update with [API calls](https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/labels.md) is in the works.
+
+
 ## Quickstart
 
 - Command Line Interface
