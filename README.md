@@ -13,7 +13,7 @@ NodeJS Toolkit & CLI for GitLab
 - Command Line Interface
 
 ```bash
-npm i -g gitlab
+npm i -g gitlab-tools
 # Clone global labels into projects (does drop projects labels!)
 gitlab clone-labels project-name --global
 ```
