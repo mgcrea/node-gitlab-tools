@@ -14,6 +14,10 @@ try { require('debug-utils'); } catch (err) {/**/}
 const argv = yargs
   .usage('Usage: $0 <command> [options]')
   .demand(1)
+  .option('dialect', {description: 'Database dialect', type: 'string'}).default('dialect', GitLabTools.defaults.dialect)
+  .option('username', {description: 'Database username', type: 'string'}).default('username', GitLabTools.defaults.username)
+  .option('password', {description: 'Database password', type: 'string'}).default('password', GitLabTools.defaults.password)
+  .option('database', {description: 'Database name', type: 'string'}).default('database', GitLabTools.defaults.database)
   .command('clone-labels', 'Clone labels between projects', () => {
     yargs
       .usage('Usage: $0 clone-labels <project_id>')
