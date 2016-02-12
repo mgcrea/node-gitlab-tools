@@ -17,8 +17,7 @@ Currently this project directly update GitLab's database, please make sure you h
 
 ```bash
 npm i -g gitlab-tools
-# Clone global labels into projects (does drop projects labels!)
-gitlab clone-labels project-name --global
+gitlab clone-labels --help
 ```
 
 ## Usage
