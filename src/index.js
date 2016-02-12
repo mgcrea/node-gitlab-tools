@@ -16,7 +16,9 @@ export default class GitLabTools {
     dialect: 'postgres',
     username: 'gitlab',
     password: 'password',
-    database: 'gitlabhq_production'
+    database: 'gitlabhq_production',
+    truncate: false,
+    global: false
   };
   constructor(argv) {
     this.config = defaults({}, pick(argv, ...Object.keys(GitLabTools.defaults)), GitLabTools.defaults);
@@ -40,19 +42,35 @@ export default class GitLabTools {
         if (!projectId) {
           throw new Error('Missing project id');
         }
-        return Promise.all([
+        return Promise.resolve()
+        .then(() => {
+          if (this.config.truncate) {
+            return Promise.cast(this.Label.destroy({where: {project_id: projectId}}))
+              .tap((deletedCount) => {
+                log.info('Deleted %d previous labels', deletedCount);
+              });
+          }
+          return 0;
+        })
+        .then(() => Promise.all([
           this.Label.findAll({
             attributes: ['title', 'color', 'project_id'],
             where: {project_id: null}
           }),
-          this.Label.destroy({where: {project_id: projectId}})
-        ])
-        .spread((labels, deletedCount) => {
-          log.info('Deleted %d previous labels', deletedCount);
-          const toCreate = _(labels).map('dataValues').map(label => {
+          this.Label.findAll({
+            attributes: ['title', 'color', 'project_id'],
+            where: {project_id: projectId}
+          })
+        ]))
+        .spread((fromLabels, toLabels) => {
+          log.info('Found %d previous labels', toLabels.length);
+          const existingLabels = _.map(toLabels, 'dataValues');
+          const toCreate = _(fromLabels).map('dataValues').map(label => {
             label.project_id = projectId;
             delete label.id;
             return label;
+          }).reject(label => {
+            return _.some(existingLabels, {title: label.title});
           }).value();
           return this.Label.bulkCreate(toCreate);
         })

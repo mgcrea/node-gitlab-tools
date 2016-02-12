@@ -7,6 +7,7 @@ const expect = chai.expect;
 import GitLabTools from './..';
 
 const options = {
+  // truncate: true,
   global: true
 };
 

@@ -19,6 +19,7 @@ const argv = yargs
       .usage('Usage: $0 clone-labels <project_id>')
       .demand(2, 'Error: clone-labels must have a file base as the first argument.')
       .option('global', {description: 'Use global labels', type: 'boolean'}).alias('global', 'g')
+      .option('truncate', {description: 'Truncate existing labels', type: 'boolean'}).alias('truncate', 't')
       .help('h').alias('h', 'help');
   })
   .help('h').alias('h', 'help')

@@ -11,7 +11,7 @@
     "build:watch": "npm run build -- -w",
     "test": "npm run test-eslint && npm run test-mocha",
     "test-eslint": "eslint src",
-    "test-mocha": "mkdir .tmp 2> /dev/null; mocha --compilers js:babel-register",
+    "test-mocha": "mkdir .tmp 2> /dev/null; mocha --compilers js:babel-register --no-exit",
     "test-mocha:watch": "npm run test-mocha -- -w",
     "prepublish": "npm run build",
     "start": "parallelshell 'npm run build:watch' 'npm run test-mocha:watch'"
