@@ -1,6 +1,6 @@
 {
   "name": "gitlab-tools",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "NodeJS Toolkit & CLI for GitLab",
   "main": "lib/index.js",
   "bin": {
