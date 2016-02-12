@@ -1,0 +1,4 @@
+{
+  "extends": "mgcrea/base",
+  "parser": "babel-eslint"
+}
