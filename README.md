@@ -18,6 +18,23 @@ npm i -g gitlab-tools
 gitlab clone-labels project-name --global
 ```
 
+## Usage
+
+```bash
+Usage: gitlab <command> [options]
+
+Commands:
+  clone-labels  Clone labels between projects
+
+Options:
+  --dialect   Database dialect                    [string] [default: "postgres"]
+  --username  Database username                     [string] [default: "gitlab"]
+  --password  Database password                   [string] [default: "password"]
+  --database  Database name            [string] [default: "gitlabhq_production"]
+  -h, --help  Show help                                                [boolean]
+  --version   Show version number                                      [boolean]
+```
+
 ## Testing
 
 - You can quickly start hacking around
