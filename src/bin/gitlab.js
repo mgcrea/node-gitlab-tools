@@ -9,7 +9,6 @@ import Promise from 'bluebird';
 import {mapKeys, camelCase} from 'lodash';
 import inquirer from 'inquirer'; Promise.promisifyAll(inquirer);
 import log from './../utils/log';
-try { require('debug-utils'); } catch (err) {/**/}
 
 const argv = yargs
   .usage('Usage: $0 <command> [options]')
@@ -21,7 +20,7 @@ const argv = yargs
   .command('clone-labels', 'Clone labels between projects', () => {
     yargs
       .usage('Usage: $0 clone-labels <project_id>')
-      .demand(2, 'Error: clone-labels must have a file base as the first argument.')
+      .demand(3, 'Error: clone-labels must have a file base as the first argument.')
       .option('global', {description: 'Use global labels', type: 'boolean'}).alias('global', 'g')
       .option('truncate', {description: 'Truncate existing labels', type: 'boolean'}).alias('truncate', 't')
       .help('h').alias('h', 'help');

@@ -1,1 +1,1 @@
-export default {info: console.log.bind(console), warn: console.warn.bind(console)};
+export default {info: ::console.log, warn: ::console.warn};

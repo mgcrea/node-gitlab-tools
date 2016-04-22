@@ -2,8 +2,7 @@ import 'source-map-support/register';
 
 import Promise from 'bluebird';
 import fs from 'fs'; Promise.promisifyAll(fs);
-import _ from 'lodash';
-import {pick, defaults} from 'lodash';
+import _, {pick, defaults} from 'lodash';
 try { require('debug-utils'); } catch (err) {/**/}
 import {Label, Project} from './models';
 import Sequelize from 'sequelize';
@@ -22,9 +21,9 @@ export default class GitLabTools {
   };
   constructor(argv) {
     this.config = defaults({}, pick(argv, ...Object.keys(GitLabTools.defaults)), GitLabTools.defaults);
-    this._initialize();
+    this.initialize();
   }
-  _initialize() {
+  initialize() {
     this.sequelize = new Sequelize(this.config.database, this.config.username, this.config.password, {
       host: this.config.host,
       port: this.config.port,
@@ -35,7 +34,11 @@ export default class GitLabTools {
     // this.sequelize.sync();
   }
   cloneLabels(projectName) {
+    if (!projectName) {
+      throw new Error('Required `projectName`');
+    }
     return Promise.cast(this.Project.find({where: {name: projectName}}))
+      .tap(d)
       .get('dataValues')
       .get('id')
       .then(projectId => {
